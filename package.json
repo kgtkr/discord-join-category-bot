@@ -1,0 +1,20 @@
+{
+  "name": "discord-join-category-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./dist/app.js",
+    "build": "tsc"
+  },
+  "author": "kgtkr",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.19.2",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@discordjs/builders": "^1.7.0",
+    "discord.js": "^14.14.1"
+  }
+}
