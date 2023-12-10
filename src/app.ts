@@ -1,4 +1,10 @@
-import { Client, REST, Routes, ChannelType } from "discord.js";
+import {
+  Client,
+  REST,
+  Routes,
+  ChannelType,
+  PermissionOverwriteOptions,
+} from "discord.js";
 import { SlashCommandBuilder } from "@discordjs/builders";
 
 function getEnv(key: string, defaultValue?: string): string {
@@ -92,17 +98,16 @@ client.on("interactionCreate", async (interaction) => {
         (overwrite) => overwrite.id === user.id
       );
 
+      const ops: PermissionOverwriteOptions = {
+        ViewChannel: true,
+        Connect: true,
+      };
       if (overwrite !== undefined) {
-        await interaction.reply({
-          content: "既にカテゴリに追加されています。",
-          ephemeral: true,
-        });
-        return;
+        await overwrite.edit(ops);
+      } else {
+        await category.permissionOverwrites.create(user, ops);
       }
 
-      await category.permissionOverwrites.create(user, {
-        ViewChannel: true,
-      });
       await interaction.reply({
         content: `<@${user.id}>をカテゴリに追加しました。`,
       });
